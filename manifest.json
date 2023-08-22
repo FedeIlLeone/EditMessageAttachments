@@ -1,20 +1,21 @@
 {
-  "id": "dev.replugged.PluginTemplate",
-  "name": "Plugin Template",
-  "description": "A plugin template",
+  "id": "dev.fedeilleone.EditMessageAttachments",
+  "name": "EditMessageAttachments",
+  "description": "Add or delete attachments when editing a message.",
   "author": {
-    "name": "replugged",
-    "discordID": "1000992611840049192",
-    "github": "replugged-org"
+    "name": "FedeIlLeone",
+    "discordID": "403195964241739776",
+    "github": "FedeIlLeone"
   },
   "version": "1.0.0",
   "updater": {
-    "type": "github",
-    "id": "replugged-org/plugin-template"
+    "type": "store",
+    "id": "dev.fedeilleone.EditMessageAttachments"
   },
   "license": "MIT",
+  "image": "https://i.imgur.com/14CNs3a.png?CHANGE-THIS-URL",
+  "source": "https://github.com/FedeIlLeone/EditMessageAttachments",
   "type": "replugged-plugin",
-  "renderer": "src/index.ts",
-  "source": "https://github.com/replugged-org/plugin-template",
-  "image": ["https://i.imgur.com/14CNs3a.png?CHANGE-THIS-URL"]
+  "renderer": "src/index.tsx",
+  "plaintextPatches": "src/plaintextPatches.ts"
 }

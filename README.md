@@ -1,11 +1,7 @@
-# Replugged plugin template
+# EditMessageAttachments
 
-See the [plugin development guide](https://guide.replugged.dev/docs/plugins/getting-started) for
-more information on using this template.
+Replugged plugin which you can add or delete attachments when editing a message.
 
-# License
+[![Install in Replugged](https://img.shields.io/badge/-Install%20in%20Replugged-blue?style=for-the-badge&logo=none)](https://replugged.dev/install?identifier=dev.fedeilleone.EditMessageAttachments)
 
-The [plugin template](https://github.com/replugged-org/plugin-template) is licensed under the
-[MIT](https://opensource.org/license/mit/) license. However, addons using this template are not
-necessarily licensed under MIT. Developers are encouraged to add a license file to their repository,
-but if none exists, the repository should be considered as unlicensed.
+<!-- TODO: Preview image -->
