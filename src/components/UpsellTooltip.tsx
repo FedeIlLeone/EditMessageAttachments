@@ -32,7 +32,7 @@ export type UpsellTooltipType = React.FC<UpsellTooltipProps> & {
   ButtonLayout: Record<"ADJACENT" | "STACKED", number>;
 };
 
-const upsellTooltipRgx = /buttonCTA,.{1,4}secondaryButtonCTA/;
+const upsellTooltipRgx = /buttonCTA,.{1,3}\.secondaryButtonCTA/;
 
 export default await webpack
   .waitForModule(webpack.filters.bySource(upsellTooltipRgx))

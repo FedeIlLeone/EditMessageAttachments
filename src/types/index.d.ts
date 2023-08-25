@@ -1,4 +1,7 @@
+import UploadMixin from "@mixins/UploadMixin";
 import type { Channel, Message } from "discord-types/general";
+import type React from "react";
+import type { CloudUpload } from "./CloudUpload";
 
 export type { CloudUpload } from "./CloudUpload";
 
@@ -59,3 +62,95 @@ export interface MessageEditorProps {
   textValue: string;
   validateEdit: (options: ValidateEditOptions) => ValidateEditResponse;
 }
+
+interface DisableableChannelAttachmentAreaProps {
+  canAttachFiles: boolean;
+  channelId: string;
+  type: Record<string, unknown>;
+}
+
+type DisableableChannelAttachmentAreaType = React.FC<DisableableChannelAttachmentAreaProps>;
+
+export type MemoDisableableChannelAttachmentAreaType =
+  React.MemoExoticComponent<DisableableChannelAttachmentAreaType>;
+
+interface PendingReply {
+  channel: Channel;
+  message: Message;
+  shouldMention: boolean;
+  showMentionToggle: boolean;
+}
+
+interface SendMessageOptions {
+  /** Not typed */
+  command?: unknown;
+  /** Not typed */
+  commandOptionValues?: unknown;
+  isGif?: boolean;
+  stickers: string[];
+  uploads?: CloudUpload[];
+  value: string;
+}
+
+interface SendMessageResponse {
+  shouldClear: boolean;
+  shouldRefocus: boolean;
+}
+
+interface ChannelTextAreaContainerProps {
+  "aria-describedby"?: string;
+  "aria-labelledby"?: string;
+  accessibilityLabel?: string;
+  allowNewLines?: boolean;
+  autoCompletePosition?: "bottom" | "top" | "left" | "right" | "center" | "window_center";
+  canMentionChannels?: boolean;
+  canMentionRoles?: boolean;
+  channel: Channel;
+  characterCountClassName?: string;
+  className?: string;
+  disabled?: boolean;
+  disableThemedBackground?: boolean;
+  focused: boolean;
+  highlighted?: boolean;
+  id?: string;
+  innerClassName?: string;
+  maxCharacterCount?: number;
+  onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLTextAreaElement>;
+  onChange?: (unknown: null, value: string, richValue: RichValue[]) => void;
+  onFocus?: React.FocusEventHandler<HTMLDivElement | HTMLTextAreaElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLTextAreaElement>;
+  onResize?: (size: number) => void;
+  onSubmit: (options: SendMessageOptions) => Promise<SendMessageResponse>;
+  pendingReply?: PendingReply;
+  placeholder?: string;
+  promptToUpload?: (typeof UploadMixin)["promptToUpload"];
+  renderApplicationCommandIcon?: (
+    /** Not typed */
+    command: unknown,
+    /** Not typed */
+    section: unknown,
+    className: string,
+  ) => React.ReactElement;
+  renderAttachButton?: (
+    canShowPremiumTutorial: boolean,
+    canOnlyUseTextCommands: boolean,
+    channel: Channel,
+  ) => React.ReactElement;
+  required?: boolean;
+  richValue: RichValue[];
+  setEditorRef?: (
+    /** Not typed */
+    ref: unknown,
+  ) => void;
+  textValue: string;
+  type: Record<string, unknown>;
+}
+
+type ChannelTextAreaContainerType = React.ForwardRefExoticComponent<
+  React.PropsWithChildren<ChannelTextAreaContainerProps>
+> & {
+  render: React.ForwardRefRenderFunction<unknown, ChannelTextAreaContainerProps>;
+};
+
+export type MemoChannelTextAreaContainerType =
+  React.MemoExoticComponent<ChannelTextAreaContainerType>;

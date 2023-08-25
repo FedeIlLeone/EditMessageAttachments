@@ -1,5 +1,5 @@
 import type { Backoff } from "replugged/dist/renderer/modules/common/api";
-import type Upload from "./Upload";
+import type { Upload } from "./Upload";
 
 declare enum CloudUploadStatus {
   NOT_STARTED = "NOT_STARTED",
@@ -16,7 +16,7 @@ interface RetryOptions {
   timeout: number;
 }
 
-declare class CloudUpload extends Upload {
+export declare class CloudUpload extends Upload {
   public constructor(
     item: Item,
     channelId: string,

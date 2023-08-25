@@ -1,5 +1,5 @@
 {
   "EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS": "{count} attachments",
-  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT": "Uploading attachments disabled while editing - EditMessageAttachments plugin enabled.",
-  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER": "Uploading Attachments Disabled"
+  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT": "File upload disabled while editing - EditMessageAttachments plugin enabled.",
+  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER": "File Upload Disabled"
 }

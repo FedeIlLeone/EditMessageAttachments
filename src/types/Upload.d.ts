@@ -45,7 +45,7 @@ interface ItemWeb {
 
 type Item = ItemReactNative | ItemWeb;
 
-declare class Upload extends EventEmitter {
+export declare class Upload extends EventEmitter {
   public constructor(item: Item, showLargeMessageDialog: boolean);
 
   public classification?: FileType;

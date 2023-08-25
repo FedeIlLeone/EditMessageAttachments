@@ -11,7 +11,7 @@ interface ScrollerThinProps extends React.ComponentPropsWithoutRef<"div"> {
 }
 
 export type ScrollerThinType = React.ForwardRefExoticComponent<ScrollerThinProps> & {
-  render: React.ForwardRefRenderFunction<unknown>;
+  render: React.ForwardRefRenderFunction<unknown, ScrollerThinProps>;
 };
 
 export default (

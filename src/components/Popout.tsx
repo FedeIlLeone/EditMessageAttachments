@@ -75,7 +75,7 @@ export type PopoutType = React.ComponentClass<PopoutProps> & {
 
 export default await webpack
   .waitForModule<Record<string, PopoutType>>(
-    webpack.filters.bySource(/ignoreModalClicks,.{1,4}closeOnScroll/),
+    webpack.filters.bySource(/ignoreModalClicks,.{1,3}\.closeOnScroll/),
   )
   .then(
     (mod) =>
