@@ -1,5 +1,5 @@
 import type { Backoff } from "replugged/dist/renderer/modules/common/api";
-import type { Upload } from "./Upload";
+import type { Item, Upload } from "./Upload";
 
 declare enum CloudUploadStatus {
   NOT_STARTED = "NOT_STARTED",

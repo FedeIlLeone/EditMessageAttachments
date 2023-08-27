@@ -70,7 +70,6 @@ interface DisableableChannelAttachmentAreaProps {
 }
 
 type DisableableChannelAttachmentAreaType = React.FC<DisableableChannelAttachmentAreaProps>;
-
 export type MemoDisableableChannelAttachmentAreaType =
   React.MemoExoticComponent<DisableableChannelAttachmentAreaType>;
 
@@ -151,6 +150,5 @@ type ChannelTextAreaContainerType = React.ForwardRefExoticComponent<
 > & {
   render: React.ForwardRefRenderFunction<unknown, ChannelTextAreaContainerProps>;
 };
-
 export type MemoChannelTextAreaContainerType =
   React.MemoExoticComponent<ChannelTextAreaContainerType>;

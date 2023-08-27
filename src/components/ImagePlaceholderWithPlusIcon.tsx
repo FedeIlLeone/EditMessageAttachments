@@ -1,11 +1,7 @@
 import type React from "react";
 import { webpack } from "replugged";
 
-interface ImagePlaceholderWithPlusIconProps extends React.ComponentPropsWithoutRef<"svg"> {
-  color?: string;
-  height?: number;
-  width?: number;
-}
+type ImagePlaceholderWithPlusIconProps = React.ComponentPropsWithoutRef<"svg">;
 
 export type ImagePlaceholderWithPlusIconType = React.FC<ImagePlaceholderWithPlusIconProps>;
 

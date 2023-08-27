@@ -3,8 +3,6 @@ import { webpack } from "replugged";
 
 interface ScrollerThinProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
-  className?: string;
-  dir?: "ltr" | "rtl" | "auto";
   fade?: boolean;
   orientation?: "vertical" | "horizontal";
   paddingFix?: boolean;
