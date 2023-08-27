@@ -4,6 +4,7 @@ import type React from "react";
 import type { CloudUpload } from "./CloudUpload";
 
 export type { CloudUpload } from "./CloudUpload";
+export type { CloudUploader } from "./CloudUploader";
 
 interface Emoji {
   allNamesString: string;
@@ -61,6 +62,20 @@ export interface MessageEditorProps {
   saveMessage: (channelId: string, messageId: string, message: OutgoingMessage) => Promise<void>;
   textValue: string;
   validateEdit: (options: ValidateEditOptions) => ValidateEditResponse;
+}
+
+interface AllowedMentions {
+  parse?: Array<"users" | "roles" | "everyone">;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  replied_user?: boolean;
+}
+
+export interface EditedMessageData {
+  channelId: string;
+  messageId: string;
+  content: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  allowed_mentions: AllowedMentions;
 }
 
 interface DisableableChannelAttachmentAreaProps {
