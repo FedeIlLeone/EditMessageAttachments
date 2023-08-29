@@ -17,6 +17,11 @@ interface FileInputProps {
 
 export type FileInputType = React.ComponentClass<FileInputProps>;
 
+// I don't like this
+export type FileInputRef = React.ElementRef<FileInputType> & {
+  activateUploadDialogue: () => void;
+};
+
 export default await webpack.waitForModule<FileInputType>(
   webpack.filters.bySource("_ref.activateUploadDialogue"),
 );

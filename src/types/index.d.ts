@@ -38,8 +38,8 @@ interface ValidateEditResponse {
 }
 
 export interface RichValue {
-  type: string;
   children: Array<{ text: string }>;
+  type: string;
 }
 
 interface MessageEditorInnerProps {
@@ -71,11 +71,11 @@ interface AllowedMentions {
 }
 
 export interface EditedMessageData {
-  channelId: string;
-  messageId: string;
-  content: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   allowed_mentions: AllowedMentions;
+  channelId: string;
+  content: string;
+  messageId: string;
 }
 
 interface DisableableChannelAttachmentAreaProps {
