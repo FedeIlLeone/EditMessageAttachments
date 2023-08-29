@@ -3,8 +3,9 @@ import type { Channel, Message } from "discord-types/general";
 import type React from "react";
 import type { CloudUpload } from "./CloudUpload";
 
-export type { CloudUpload } from "./CloudUpload";
-export type { CloudUploader } from "./CloudUploader";
+export type * from "./Upload";
+export type * from "./CloudUpload";
+export type * from "./CloudUploader";
 
 interface Emoji {
   allNamesString: string;
