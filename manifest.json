@@ -13,7 +13,7 @@
     "id": "dev.fedeilleone.EditMessageAttachments"
   },
   "license": "MIT",
-  "image": "https://i.imgur.com/14CNs3a.png?CHANGE-THIS-URL",
+  "image": "https://i.imgur.com/rTMgInV.gif",
   "source": "https://github.com/FedeIlLeone/EditMessageAttachments",
   "type": "replugged-plugin",
   "renderer": "src/index.tsx",
