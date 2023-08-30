@@ -1,9 +1,11 @@
+import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreators";
 import ComposerAttachmentPopout from "@components/ComposerAttachmentPopout";
 import Popout, { PopoutAlign, PopoutPositions } from "@components/Popout";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type { Message } from "discord-types/general";
 import type React from "react";
 import { common } from "replugged";
+import { MAX_UPLOAD_COUNT } from "../constants";
 
 import "./EditComposerAttachments.css";
 
@@ -25,6 +27,9 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement => {
   });
 
   const attachmentsCount = message.attachments.length ?? 0;
+
+  if (uploadsCount + attachmentsCount > MAX_UPLOAD_COUNT)
+    UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
 
   return (
     <Popout

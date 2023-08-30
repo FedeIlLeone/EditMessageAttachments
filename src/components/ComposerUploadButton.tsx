@@ -5,6 +5,7 @@ import ChannelStore from "@stores/ChannelStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import { common, components } from "replugged";
 import { logger } from "..";
+import { MAX_UPLOAD_COUNT } from "../constants";
 
 import "./ComposerUploadButton.css";
 
@@ -15,8 +16,6 @@ const {
   React,
 } = common;
 const { Clickable } = components;
-
-const MAX_UPLOAD_COUNT = 10;
 
 interface ComposerUploadButtonProps {
   attachmentsCount: number;
