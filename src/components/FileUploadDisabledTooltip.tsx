@@ -49,6 +49,7 @@ export default (props: FileUploadDisabledTooltipProps): React.ReactElement | nul
         </div>
       )}
       position={PopoutPositions.TOP}
+      // TODO: Need to change the align dynamically, so it points to the button (if present)
       align={PopoutAlign.CENTER}
       animation={Popout.Animation.TRANSLATE}
       shouldShow={shouldShow && !hasSeenCTA && isEditing}>
