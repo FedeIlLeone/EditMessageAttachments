@@ -48,7 +48,8 @@ export function _checkHasUploads(channelId: string): boolean {
 }
 
 export function _clearUploads(channelId: string): void {
-  if (channelId && !stopped) UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
+  if (channelId && !stopped)
+    UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
 }
 
 export async function _patchEditMessageAction(
