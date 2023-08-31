@@ -25,6 +25,11 @@ const patches: types.PlaintextPatch[] = [
         replace: (_, prefix, ogCheck) =>
           `${prefix}!${pluginExports}._checkHasUploads(e.props.channel.id)&&${ogCheck}`,
       },
+      {
+        // Clear the upload queue when canceling
+        match: /(onCancel:function\(\){)/,
+        replace: (_, prefix) => `${prefix}${pluginExports}._clearUploads(e.channel.id);`,
+      },
     ],
   },
   {

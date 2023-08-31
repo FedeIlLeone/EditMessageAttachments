@@ -1,26 +1,31 @@
 import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreators";
 import ComposerAttachmentPopout from "@components/ComposerAttachmentPopout";
 import Popout, { PopoutAlign, PopoutPositions } from "@components/Popout";
+import PermissionStore from "@stores/PermissionStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
-import type { Message } from "discord-types/general";
-import type React from "react";
+import type { Channel, Message } from "discord-types/general";
 import { common } from "replugged";
 import { MAX_UPLOAD_COUNT } from "../constants";
 
 import "./EditComposerAttachments.css";
 
 const {
+  constants,
   flux: Flux,
+  fluxDispatcher: Dispatcher,
   i18n: { Messages },
+  React,
 } = common;
 
 interface EditComposerAttachmentsProps {
-  channelId: string;
+  channel: Channel;
   message: Message;
 }
 
-export default (props: EditComposerAttachmentsProps): React.ReactElement => {
-  const { channelId, message } = props;
+export default (props: EditComposerAttachmentsProps): React.ReactElement | null => {
+  const { channel, message } = props;
+
+  const channelId = channel.id;
 
   const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () => {
     return UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage);
@@ -31,6 +36,19 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement => {
   if (uploadsCount + attachmentsCount > MAX_UPLOAD_COUNT)
     UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
 
+  const canAttach = Flux.useStateFromStores([PermissionStore], () => {
+    return (
+      channel.isPrivate() ||
+      (PermissionStore.can(constants.Permissions!.ATTACH_FILES, channel) &&
+        PermissionStore.can(constants.Permissions!.SEND_MESSAGES, channel))
+    );
+  });
+  if (!canAttach) return null;
+
+  const [shouldShow, setShouldShow] = React.useState(false);
+
+  Dispatcher.subscribe("UPLOAD_ATTACHMENT_ADD_FILES", () => setShouldShow(true));
+
   return (
     <Popout
       renderPopout={() => (
@@ -38,9 +56,14 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement => {
       )}
       position={PopoutPositions.TOP}
       align={PopoutAlign.RIGHT}
+      shouldShow={shouldShow}
+      onRequestClose={() => setShouldShow(false)}
       ignoreModalClicks>
       {(props) => (
-        <a {...props} className="editMessageAttachments-attachmentsCount">
+        <a
+          {...props}
+          onClick={() => setShouldShow(!shouldShow)}
+          className="editMessageAttachments-attachmentsCount">
           {Messages.EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS.format({
             count: (uploadsCount + attachmentsCount).toString(),
           })}

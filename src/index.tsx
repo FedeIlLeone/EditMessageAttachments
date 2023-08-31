@@ -25,12 +25,13 @@ export const inject = new Injector();
 export function _renderEditComposerAttachments(props: MessageEditorProps): React.ReactNode {
   const { channel, message } = props;
 
-  if (!channel) return null;
+  if (!channel || !message) return null;
 
-  return stopped ? null : <EditComposerAttachments channelId={channel.id} message={message} />;
+  return stopped ? null : <EditComposerAttachments channel={channel} message={message} />;
 }
 
 export function _checkIsInEditor(channelId: string): boolean {
+  if (!channelId) return false;
   return stopped ? false : EditMessageStore.isEditingAny(channelId);
 }
 
@@ -42,9 +43,13 @@ export function _getEditMessageStore(): typeof EditMessageStore {
 export function _checkHasUploads(channelId: string): boolean {
   if (!channelId) return false;
 
-  return stopped
-    ? false
-    : UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage) > 0;
+  const uploadCount = UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage);
+  return stopped ? false : uploadCount > 0;
+}
+
+export function _clearUploads(channelId: string): void {
+  if (!channelId) return;
+  UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
 }
 
 export async function _patchEditMessageAction(
@@ -115,12 +120,17 @@ async function patchChannelTextAreaContainer(): Promise<void> {
       );
     }
 
-    const isEditing = Flux.useStateFromStores([EditMessageStore], () => {
-      return EditMessageStore.isEditingAny(props.channel.id);
-    });
+    const isEditing = EditMessageStore.isEditingAny(props.channel.id);
+    // We don't need to listen to store changes, it re-renders pretty much constantly
     if (isEditing && props.type) {
       (props.type.submit as Record<string, boolean>).allowEmptyMessage = true;
     }
+  });
+}
+
+function patchStartEditMessageAction(): void {
+  inject.after(messages, "startEditMessage", ([channelId]) => {
+    UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
   });
 }
 
@@ -131,6 +141,7 @@ export async function start(): Promise<void> {
 
   await patchDisableableChannelAttachmentArea();
   await patchChannelTextAreaContainer();
+  patchStartEditMessageAction();
 
   stopped = false;
 }
