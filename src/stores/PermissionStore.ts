@@ -10,6 +10,7 @@ interface GuildPermissionProps {
   canManageNicknames: boolean;
   canManageRoles: boolean;
   canManageWebhooks: boolean;
+  canUseClydeAI: boolean;
   canViewAuditLog: boolean;
   canViewAuditLogV2: boolean;
   canViewGuildAnalytics: boolean;

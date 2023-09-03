@@ -33,7 +33,7 @@ export default (props: ComposerAttachmentPopoutProps): React.ReactElement => {
       orientation="horizontal"
       className="editMessageAttachments-popout"
       paddingFix={false}
-      fade={true}>
+      fade>
       <ComposerUploadButton channelId={channelId} attachmentsCount={attachmentsCount} />
       {uploads.length > 0 && (
         <div className="editMessageAttachments-uploads">
@@ -43,7 +43,7 @@ export default (props: ComposerAttachmentPopoutProps): React.ReactElement => {
               draftType={DraftType.ChannelMessage}
               upload={upload}
               keyboardModeEnabled={keyboardModeEnabled}
-              hideFileName={true}
+              hideFileName
               size={AttachmentListItemSizes.SMALL}
             />
           ))}

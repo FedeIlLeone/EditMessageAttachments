@@ -25,6 +25,7 @@ export const inject = new Injector();
 export function _renderEditComposerAttachments(props: MessageEditorProps): React.ReactNode {
   const { channel, message } = props;
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!channel || !message) return null;
 
   return stopped ? null : <EditComposerAttachments channel={channel} message={message} />;
@@ -56,6 +57,7 @@ export async function _patchEditMessageAction(
   data: EditedMessageData,
   originalFunction: (response: Record<string, unknown>) => void,
 ): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!data) return;
 
   const { channelId, messageId } = data;
@@ -75,6 +77,7 @@ export async function _patchEditMessageAction(
 
   function runOriginalFunction(response: Record<string, unknown>): void {
     const patchedResponse = { body: response };
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (originalFunction) originalFunction(patchedResponse);
   }
 
@@ -111,7 +114,7 @@ async function patchChannelTextAreaContainer(): Promise<void> {
     );
 
   inject.after(MemoChannelTextAreaContainer.type, "render", ([props], res: React.ReactElement) => {
-    const children = res?.props?.children?.props?.children;
+    const children = res.props?.children?.props?.children;
     if (children?.[1] && props.renderAttachButton) {
       children[1] = (
         <FileUploadDisabledTooltip channelId={props.channel.id}>
@@ -120,8 +123,9 @@ async function patchChannelTextAreaContainer(): Promise<void> {
       );
     }
 
-    const isEditing = EditMessageStore.isEditingAny(props.channel.id);
     // We don't need to listen to store changes, it re-renders pretty much constantly
+    const isEditing = EditMessageStore.isEditingAny(props.channel.id);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (isEditing && props.type) {
       (props.type.submit as Record<string, boolean>).allowEmptyMessage = true;
     }

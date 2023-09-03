@@ -31,7 +31,7 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement | null 
     return UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage);
   });
 
-  const attachmentsCount = message.attachments.length ?? 0;
+  const attachmentsCount = message.attachments.length;
 
   if (uploadsCount + attachmentsCount > MAX_UPLOAD_COUNT)
     UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
@@ -47,7 +47,12 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement | null 
 
   const [shouldShow, setShouldShow] = React.useState(false);
 
-  Dispatcher.subscribe("UPLOAD_ATTACHMENT_ADD_FILES", () => setShouldShow(true));
+  React.useEffect(() => {
+    const showFn = (): void => setShouldShow(true);
+
+    Dispatcher.subscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
+    return () => Dispatcher.unsubscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
+  });
 
   return (
     <Popout

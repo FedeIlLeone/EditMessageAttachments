@@ -75,7 +75,7 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
         disabled={attachmentsCount + uploadsCount >= MAX_UPLOAD_COUNT}
         multiple={channel.rateLimitPerUser <= 0}
         tabIndex={-1}
-        aria-hidden={true}
+        aria-hidden
       />
       <ImagePlaceholderWithPlusIcon
         className="editMessageAttachments-uploadIcon"
