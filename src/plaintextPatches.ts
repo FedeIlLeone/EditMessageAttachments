@@ -39,7 +39,7 @@ const patches: types.PlaintextPatch[] = [
       {
         match: /(isPrivate\(\),\w{1,2}=\(0,.+?\[.+?)(\].+?return )(.+?ATTACH_FILES,(\w).+?)}\)\)/,
         replace: (_, prefix1, prefix2, ogDef, variable) =>
-          `${prefix1},${pluginExports}._getEditMessageStore()${prefix2}${pluginExports}._checkIsInEditor(${variable})?false:${ogDef}}))`,
+          `${prefix1},${pluginExports}._getEditMessageStore()${prefix2}${pluginExports}._checkIsInEditor(${variable}.id)?false:${ogDef}}))`,
       },
     ],
   },
