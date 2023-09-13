@@ -9,13 +9,7 @@ import { MAX_UPLOAD_COUNT } from "../constants";
 
 import "./EditComposerAttachments.css";
 
-const {
-  constants,
-  flux: Flux,
-  fluxDispatcher: Dispatcher,
-  i18n: { Messages },
-  React,
-} = common;
+const { constants, flux: Flux, fluxDispatcher: Dispatcher, i18n, React } = common;
 
 interface EditComposerAttachmentsProps {
   channel: Channel;
@@ -69,7 +63,7 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement | null 
           {...props}
           onClick={() => setShouldShow(!shouldShow)}
           className="editMessageAttachments-attachmentsCount">
-          {Messages.EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS.format({
+          {i18n.Messages.EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS.format({
             count: (uploadsCount + attachmentsCount).toString(),
           })}
         </a>

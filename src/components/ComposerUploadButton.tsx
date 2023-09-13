@@ -9,12 +9,7 @@ import { MAX_UPLOAD_COUNT } from "../constants";
 
 import "./ComposerUploadButton.css";
 
-const {
-  flux: Flux,
-  i18n: { Messages },
-  modal,
-  React,
-} = common;
+const { flux: Flux, i18n, modal, React } = common;
 const { Clickable } = components;
 
 interface ComposerUploadButtonProps {
@@ -59,8 +54,10 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
           const count = event.currentTarget.files?.length ?? 0;
           if (attachmentsCount + count + uploadsCount > MAX_UPLOAD_COUNT) {
             modal.alert({
-              title: Messages.ATTACHMENT_TOO_MANY_ERROR_TITLE,
-              body: Messages.ATTACHMENT_TOO_MANY_ERROR_MESSAGE.format({ limit: MAX_UPLOAD_COUNT }),
+              title: i18n.Messages.ATTACHMENT_TOO_MANY_ERROR_TITLE,
+              body: i18n.Messages.ATTACHMENT_TOO_MANY_ERROR_MESSAGE.format({
+                limit: MAX_UPLOAD_COUNT,
+              }),
             });
             return;
           }

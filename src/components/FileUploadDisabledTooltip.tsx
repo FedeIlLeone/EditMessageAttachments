@@ -5,11 +5,7 @@ import LayerStore from "@stores/LayerStore";
 import { cfg } from "@utils/PluginSettingsUtils";
 import { common } from "replugged";
 
-const {
-  flux: Flux,
-  i18n: { Messages },
-  React,
-} = common;
+const { flux: Flux, i18n, React } = common;
 
 interface FileUploadDisabledTooltipProps {
   channelId: string;
@@ -37,9 +33,9 @@ export default (props: FileUploadDisabledTooltipProps): React.ReactElement | nul
       renderPopout={() => (
         <div onClick={(event) => event.stopPropagation()}>
           <UpsellTooltip
-            header={Messages.EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER}
-            content={Messages.EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT}
-            buttonCTA={Messages.GOT_IT}
+            header={i18n.Messages.EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER}
+            content={i18n.Messages.EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT}
+            buttonCTA={i18n.Messages.GOT_IT}
             onClick={() => {
               cfg.set("hasSeenCTA", true);
               setShouldShow(false);

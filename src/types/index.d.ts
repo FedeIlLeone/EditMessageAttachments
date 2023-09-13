@@ -21,7 +21,7 @@ interface Emoji {
   url: string;
 }
 
-interface OutgoingMessage {
+interface ParsedMessage {
   content: string;
   invalidEmojis?: Emoji[];
   tts?: boolean;
@@ -60,7 +60,7 @@ export interface MessageEditorProps {
   onCancel: (channelId: string, response?: Record<string, unknown>) => void;
   onConfirmDelete: (channel: Channel, message: Message, showContextMenuHint?: boolean) => void;
   richValue: RichValue[];
-  saveMessage: (channelId: string, messageId: string, message: OutgoingMessage) => Promise<void>;
+  saveMessage: (channelId: string, messageId: string, message: ParsedMessage) => Promise<void>;
   textValue: string;
   validateEdit: (options: ValidateEditOptions) => ValidateEditResponse;
 }

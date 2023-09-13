@@ -1,0 +1,5 @@
+{
+  "EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS": "{count, plural, =1 {# załącznik} other {# załączniki}}",
+  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT": "Przesyłanie plików wyłączone podczas edycji - Wtyczka EditMessageAttachments włączona.",
+  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER": "Przesyłanie plików wyłączone"
+}
