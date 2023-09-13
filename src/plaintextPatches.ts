@@ -59,7 +59,7 @@ const patches: types.PlaintextPatch[] = [
     find: /\.A11Y_ANNOUNCEMENT_MESSAGE_EDITED_FAILED/,
     replacements: [
       {
-        match: /((\w)={channelId.+?};)(.+?enqueue\(.+?(\(function.+?(?:[^}]*?}\)){2}))/,
+        match: /((\w)={channelId.+?};)(.+?enqueue\(.+?(\(function.+?(?:[^}]*?}\)){2}))/s,
         replace: (_, prefix1, variable, prefix2, ogFn) =>
           `${prefix1}${pluginExports}._checkHasUploads(${variable}?.channelId)?${pluginExports}._patchEditMessageAction(${variable},${ogFn}):${prefix2}`,
       },
