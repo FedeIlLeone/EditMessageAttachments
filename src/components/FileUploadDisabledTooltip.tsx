@@ -1,5 +1,5 @@
-import Popout, { PopoutAlign, PopoutPositions } from "@components/Popout";
-import UpsellTooltip from "@components/UpsellTooltip";
+import Popout, { PopoutAlign, PopoutPositions } from "@components/webpack/Popout";
+import UpsellTooltip from "@components/webpack/UpsellTooltip";
 import EditMessageStore from "@stores/EditMessageStore";
 import LayerStore from "@stores/LayerStore";
 import { cfg } from "@utils/PluginSettingsUtils";

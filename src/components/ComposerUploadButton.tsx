@@ -1,5 +1,5 @@
-import FileInput, { type FileInputRef } from "@components/FileInput";
-import ImagePlaceholderWithPlusIcon from "@components/ImagePlaceholderWithPlusIcon";
+import FileInput, { type FileInputRef } from "@components/webpack/FileInput";
+import ImagePlaceholderWithPlusIcon from "@components/webpack/ImagePlaceholderWithPlusIcon";
 import UploadMixin from "@mixins/UploadMixin";
 import ChannelStore from "@stores/ChannelStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";

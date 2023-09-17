@@ -1,8 +1,8 @@
 import ChannelAttachmentUpload, {
   AttachmentListItemSizes,
-} from "@components/ChannelAttachmentUpload";
+} from "@components/webpack/ChannelAttachmentUpload";
 import ComposerUploadButton from "@components/ComposerUploadButton";
-import ScrollerThin from "@components/ScrollerThin";
+import ScrollerThin from "@components/webpack/ScrollerThin";
 import AccessibilityStore from "@stores/AccessibilityStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type React from "react";

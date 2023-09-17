@@ -1,6 +1,6 @@
 import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreators";
 import ComposerAttachmentPopout from "@components/ComposerAttachmentPopout";
-import Popout, { PopoutAlign, PopoutPositions } from "@components/Popout";
+import Popout, { PopoutAlign, PopoutPositions } from "@components/webpack/Popout";
 import PermissionStore from "@stores/PermissionStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type { Channel, Message } from "discord-types/general";
