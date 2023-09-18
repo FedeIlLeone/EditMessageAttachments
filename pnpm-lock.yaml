@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.6.0
-    version: 20.6.0
+    specifier: ^20.6.2
+    version: 20.6.2
   '@types/react':
     specifier: ^18.2.21
     version: 18.2.21
@@ -36,8 +36,8 @@ devDependencies:
     specifier: ^3.0.3
     version: 3.0.3
   replugged:
-    specifier: ^4.6.2
-    version: 4.6.2(@codemirror/view@6.17.1)(@lezer/common@1.0.4)(typescript@5.2.2)
+    specifier: ^4.6.3
+    version: 4.6.3(@codemirror/view@6.17.1)(@lezer/common@1.0.4)(typescript@5.2.2)
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -1672,8 +1672,8 @@ packages:
     resolution: {integrity: sha512-ZE/5aB73CyGqgQULkLG87N9GnyGe5TcQjv34pwS8tfBs1IkCh0ASM69mydb2znqd6v0eX+9Ytvk6oQRqu8T1Vw==}
     dev: true
 
-  /@types/node@20.6.0:
-    resolution: {integrity: sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==}
+  /@types/node@20.6.2:
+    resolution: {integrity: sha512-Y+/1vGBHV/cYk6OI1Na/LHzwnlNCAfU3ZNGrc1LdRe/LAIbdDPTTv/HU3M7yXN448aTVDq3eKRm2cg7iKLb8gw==}
     dev: true
 
   /@types/prop-types@15.7.5:
@@ -4066,8 +4066,8 @@ packages:
       rc: 1.2.8
     dev: true
 
-  /replugged@4.6.2(@codemirror/view@6.17.1)(@lezer/common@1.0.4)(typescript@5.2.2):
-    resolution: {integrity: sha512-StxO225HKScI1glKID4LHDpWoBb5qcwfEmZXx6vdvo8s/TVA9e+oC+gLesQ0o4Pii075ePRcc8tc3pTFD9QYNg==}
+  /replugged@4.6.3(@codemirror/view@6.17.1)(@lezer/common@1.0.4)(typescript@5.2.2):
+    resolution: {integrity: sha512-azOJlM9N6m8CQ03LnovFawJHHev8c7xlLWqhgf1pV5/YNZMbiScbn+XtMEOUhSu7S4Z+kKFq27lsExsndcWEUw==}
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     hasBin: true
     dependencies:
