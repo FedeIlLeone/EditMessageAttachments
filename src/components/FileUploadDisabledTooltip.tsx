@@ -28,7 +28,9 @@ export default (props: FileUploadDisabledTooltipProps): React.ReactElement | nul
 
   const renderChildren = (): React.ReactElement => children;
 
-  return hasLayers ? null : (
+  return hasLayers ? (
+    children
+  ) : (
     <Popout
       renderPopout={() => (
         <div onClick={(event) => event.stopPropagation()}>
