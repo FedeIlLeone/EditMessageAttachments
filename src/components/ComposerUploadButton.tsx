@@ -48,7 +48,6 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
         }
       }}>
       <FileInput
-        className="editMessageAttachments-fileInput"
         ref={ref}
         onChange={(event) => {
           const count = event.currentTarget.files?.length ?? 0;

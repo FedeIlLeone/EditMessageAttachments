@@ -21,6 +21,7 @@ interface AccessibilityState {
   syncProfileThemeWithUserTheme: boolean;
   systemForcedColors: "active" | "none";
   systemPrefersContrast: "no-preference" | "more" | "less";
+  systemPrefersCrossfades: boolean;
   systemPrefersReducedMotion: "no-preference" | "reduce";
   zoom: number;
 }
@@ -55,6 +56,7 @@ export interface AccessibilityStore extends PersistedStore {
   get syncProfileThemeWithUserTheme(): boolean;
   get systemForcedColors(): "active" | "none";
   get systemPrefersContrast(): "no-preference" | "more" | "less";
+  get systemPrefersCrossfades(): boolean;
   get systemPrefersReducedMotion(): "no-preference" | "reduce";
   get useForcedColors(): boolean;
   get useReducedMotion(): boolean;

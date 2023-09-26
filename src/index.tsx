@@ -2,6 +2,7 @@ import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreat
 import EditComposerAttachments from "@components/EditComposerAttachments";
 import FileUploadDisabledTooltip from "@components/FileUploadDisabledTooltip";
 import translations from "@i18n";
+import UploadMixin from "@mixins/UploadMixin";
 import EditMessageStore from "@stores/EditMessageStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type {
@@ -34,11 +35,6 @@ export function _renderEditComposerAttachments(props: MessageEditorProps): React
 export function _checkIsInEditor(channelId: string): boolean {
   if (!channelId) return false;
   return stopped ? false : EditMessageStore.isEditingAny(channelId);
-}
-
-// I don't like this at all, but we need it to add it as a dependency of useStateFromStores
-export function _getEditMessageStore(): typeof EditMessageStore {
-  return EditMessageStore;
 }
 
 export function _checkHasUploads(channelId: string): boolean {
@@ -81,6 +77,7 @@ export async function _patchEditMessageAction(
     if (originalFunction) originalFunction(patchedResponse);
   }
 
+  // TODO: CloudUploader has a "progress" event; maybe can add a progress bar or a spinner?
   cloudUploader.on("error", (_, __, response) => runOriginalFunction(response));
   cloudUploader.on("complete", (_, response) => runOriginalFunction(response));
 
@@ -126,8 +123,9 @@ async function patchChannelTextAreaContainer(): Promise<void> {
     // We don't need to listen to store changes, it re-renders pretty much constantly
     const isEditing = EditMessageStore.isEditingAny(props.channel.id);
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (isEditing && props.type) {
+    if (isEditing && props.type.analyticsName === "edit" && props.type) {
       (props.type.submit as Record<string, boolean>).allowEmptyMessage = true;
+      props.promptToUpload ||= UploadMixin.promptToUpload;
     }
   });
 }

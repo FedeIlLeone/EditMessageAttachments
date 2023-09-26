@@ -1,6 +1,7 @@
 import type { types } from "replugged";
 
 const pluginExports = `window.replugged.plugins.getExports("dev.fedeilleone.EditMessageAttachments")`;
+const EditMessageStore = `window.replugged.webpack.getByStoreName("EditMessageStore")`;
 
 const patches: types.PlaintextPatch[] = [
   {
@@ -39,7 +40,7 @@ const patches: types.PlaintextPatch[] = [
       {
         match: /(isPrivate\(\),\w{1,2}=\(0,.+?\[.+?)(\].+?return )(.+?ATTACH_FILES,(\w).+?)}\)\)/,
         replace: (_, prefix1, prefix2, ogDef, variable) =>
-          `${prefix1},${pluginExports}._getEditMessageStore()${prefix2}${pluginExports}._checkIsInEditor(${variable}.id)?false:${ogDef}}))`,
+          `${prefix1},${EditMessageStore}${prefix2}${pluginExports}._checkIsInEditor(${variable}.id)?false:${ogDef}}))`,
       },
     ],
   },
@@ -62,6 +63,17 @@ const patches: types.PlaintextPatch[] = [
         match: /((\w)={channelId.+?};)(.+?enqueue\(.+?(\(function.+?(?:[^}]*?}\)){2}))/s,
         replace: (_, prefix1, variable, prefix2, ogFn) =>
           `${prefix1}${pluginExports}._checkHasUploads(${variable}?.channelId)?${pluginExports}._patchEditMessageAction(${variable},${ogFn}):${prefix2}`,
+      },
+    ],
+  },
+  {
+    // Enable pasting files while editing
+    find: /renderAttachButton,.{1,3}\.renderApplicationCommandIcon/,
+    replacements: [
+      {
+        match: /canPasteFiles:(\w+)/,
+        replace: (_, variable) =>
+          `canPasteFiles:${variable}||${pluginExports}._checkIsInEditor(e.channel.id)`,
       },
     ],
   },

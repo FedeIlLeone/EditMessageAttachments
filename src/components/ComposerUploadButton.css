@@ -19,12 +19,6 @@
   color: var(--interactive-active);
 }
 
-.editMessageAttachments-fileInput {
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
 .editMessageAttachments-uploadIcon {
   color: var(--interactive-normal);
 }
