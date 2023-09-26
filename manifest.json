@@ -7,7 +7,7 @@
     "discordID": "403195964241739776",
     "github": "FedeIlLeone"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "updater": {
     "type": "store",
     "id": "dev.fedeilleone.EditMessageAttachments"
