@@ -123,7 +123,7 @@ async function patchChannelTextAreaContainer(): Promise<void> {
     // We don't need to listen to store changes, it re-renders pretty much constantly
     const isEditing = EditMessageStore.isEditingAny(props.channel.id);
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (isEditing && props.type.analyticsName === "edit" && props.type) {
+    if (isEditing && props.type?.analyticsName === "edit") {
       (props.type.submit as Record<string, boolean>).allowEmptyMessage = true;
       props.promptToUpload ||= UploadMixin.promptToUpload;
     }
