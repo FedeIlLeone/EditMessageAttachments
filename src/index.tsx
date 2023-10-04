@@ -110,6 +110,7 @@ async function patchChannelTextAreaContainer(): Promise<void> {
       webpack.filters.bySource(/renderAttachButton,.{1,3}\.renderApplicationCommandIcon/),
     );
 
+  // Wrap the children in the upsell tooltip
   inject.after(MemoChannelTextAreaContainer.type, "render", ([props], res: React.ReactElement) => {
     const children = res.props?.children?.props?.children;
     if (children?.[1] && props.renderAttachButton) {
@@ -119,11 +120,13 @@ async function patchChannelTextAreaContainer(): Promise<void> {
         </FileUploadDisabledTooltip>
       );
     }
+  });
 
+  // Enable sending an empty message and pasting files while editing
+  inject.before(MemoChannelTextAreaContainer.type, "render", ([props]) => {
     // We don't need to listen to store changes, it re-renders pretty much constantly
     const isEditing = EditMessageStore.isEditingAny(props.channel.id);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (isEditing && props.type?.analyticsName === "edit") {
+    if (isEditing && props.type.analyticsName === "edit") {
       (props.type.submit as Record<string, boolean>).allowEmptyMessage = true;
       props.promptToUpload ||= UploadMixin.promptToUpload;
     }
