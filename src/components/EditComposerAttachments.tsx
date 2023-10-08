@@ -1,4 +1,6 @@
-import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreators";
+import UploadAttachmentActionCreators, {
+  type AddFilesOptions,
+} from "@actions/UploadAttachmentActionCreators";
 import ComposerAttachmentPopout from "@components/ComposerAttachmentPopout";
 import Popout, { PopoutAlign, PopoutPositions } from "@components/webpack/Popout";
 import PermissionStore from "@stores/PermissionStore";
@@ -21,30 +23,34 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement | null 
 
   const channelId = channel.id;
 
-  const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () => {
-    return UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage);
-  });
+  const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () =>
+    UploadAttachmentStore.getUploadCount(channelId, DraftType.EditedChannelMessage),
+  );
 
   const attachmentsCount = message.attachments.length;
 
   if (uploadsCount + attachmentsCount > MAX_UPLOAD_COUNT)
-    UploadAttachmentActionCreators.clearAll(channelId, DraftType.ChannelMessage);
+    UploadAttachmentActionCreators.clearAll(channelId, DraftType.EditedChannelMessage);
 
-  const canAttach = Flux.useStateFromStores([PermissionStore], () => {
-    return (
+  const canAttach = Flux.useStateFromStores(
+    [PermissionStore],
+    () =>
       channel.isPrivate() ||
       (PermissionStore.can(constants.Permissions!.ATTACH_FILES, channel) &&
-        PermissionStore.can(constants.Permissions!.SEND_MESSAGES, channel))
-    );
-  });
+        PermissionStore.can(constants.Permissions!.SEND_MESSAGES, channel)),
+  );
   if (!canAttach) return null;
 
   const [shouldShow, setShouldShow] = React.useState(false);
 
   React.useEffect(() => {
-    const showFn = (): void => setShouldShow(true);
+    const showFn = (action: AddFilesOptions): void => {
+      if (action.draftType === DraftType.EditedChannelMessage) setShouldShow(true);
+    };
 
+    // @ts-expect-error Wrong types
     Dispatcher.subscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
+    // @ts-expect-error Wrong types x2
     return () => Dispatcher.unsubscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
   });
 

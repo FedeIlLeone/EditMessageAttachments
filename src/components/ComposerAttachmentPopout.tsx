@@ -20,13 +20,14 @@ interface ComposerAttachmentPopoutProps {
 export default (props: ComposerAttachmentPopoutProps): React.ReactElement => {
   const { attachmentsCount, channelId } = props;
 
-  const uploads = Flux.useStateFromStores([UploadAttachmentStore], () => {
-    return UploadAttachmentStore.getUploads(channelId, DraftType.ChannelMessage);
-  });
+  const uploads = Flux.useStateFromStores([UploadAttachmentStore], () =>
+    UploadAttachmentStore.getUploads(channelId, DraftType.EditedChannelMessage),
+  );
 
-  const keyboardModeEnabled = Flux.useStateFromStores([AccessibilityStore], () => {
-    return AccessibilityStore.keyboardModeEnabled;
-  });
+  const keyboardModeEnabled = Flux.useStateFromStores(
+    [AccessibilityStore],
+    () => AccessibilityStore.keyboardModeEnabled,
+  );
 
   return (
     <ScrollerThin
@@ -40,7 +41,7 @@ export default (props: ComposerAttachmentPopoutProps): React.ReactElement => {
           {uploads.map((upload) => (
             <ChannelAttachmentUpload
               channelId={channelId}
-              draftType={DraftType.ChannelMessage}
+              draftType={DraftType.EditedChannelMessage}
               upload={upload}
               keyboardModeEnabled={keyboardModeEnabled}
               hideFileName

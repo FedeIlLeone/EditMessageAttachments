@@ -1,7 +1,6 @@
 import type { types } from "replugged";
 
 const pluginExports = `window.replugged.plugins.getExports("dev.fedeilleone.EditMessageAttachments")`;
-const EditMessageStore = `window.replugged.webpack.getByStoreName("EditMessageStore")`;
 
 const patches: types.PlaintextPatch[] = [
   {
@@ -30,28 +29,6 @@ const patches: types.PlaintextPatch[] = [
         // Clear the upload queue when canceling
         match: /(onCancel:function\(\){)/,
         replace: (_, prefix) => `${prefix}${pluginExports}._clearUploads(e.channel.id);`,
-      },
-    ],
-  },
-  {
-    // Disable the upload a file option
-    find: /\.setValue,.{1,3}\.canShowPremiumTutorial/,
-    replacements: [
-      {
-        match: /(isPrivate\(\),\w{1,2}=\(0,.+?\[.+?)(\].+?return )(.+?ATTACH_FILES,(\w).+?)}\)\)/,
-        replace: (_, prefix1, prefix2, ogDef, variable) =>
-          `${prefix1},${EditMessageStore}${prefix2}${pluginExports}._checkIsInEditor(${variable}.id)?false:${ogDef}}))`,
-      },
-    ],
-  },
-  {
-    // Stop sending attachments "normally" while editing
-    find: /\.handleSendMessage/,
-    replacements: [
-      {
-        match: /(case.+?value,\w=)(\w\.uploads)(.+?[\s].+?\w=(\w\.props))/,
-        replace: (_, prefix1, ogDef, prefix2, variable) =>
-          `${prefix1}${pluginExports}._checkIsInEditor(${variable}.channel?.id)?[]:${ogDef}${prefix2}`,
       },
     ],
   },

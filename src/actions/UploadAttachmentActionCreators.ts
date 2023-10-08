@@ -12,7 +12,7 @@ interface AddFileOptions extends CommonAddOptions {
   file: Item;
 }
 
-interface AddFilesOptions extends CommonAddOptions {
+export interface AddFilesOptions extends CommonAddOptions {
   files: Item[];
 }
 

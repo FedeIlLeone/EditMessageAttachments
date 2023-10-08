@@ -1,11 +1,12 @@
 import UploadMixin from "@mixins/UploadMixin";
+import { DraftType } from "@stores/UploadAttachmentStore";
 import type { Channel, Message } from "discord-types/general";
 import type React from "react";
 import type { CloudUpload } from "./CloudUpload";
 
-export type * from "./Upload";
 export type * from "./CloudUpload";
 export type * from "./CloudUploader";
+export type * from "./Upload";
 
 interface Emoji {
   allNamesString: string;
@@ -79,16 +80,6 @@ export interface EditedMessageData {
   messageId: string;
 }
 
-interface DisableableChannelAttachmentAreaProps {
-  canAttachFiles: boolean;
-  channelId: string;
-  type: Record<string, unknown>;
-}
-
-type DisableableChannelAttachmentAreaType = React.FC<DisableableChannelAttachmentAreaProps>;
-export type MemoDisableableChannelAttachmentAreaType =
-  React.MemoExoticComponent<DisableableChannelAttachmentAreaType>;
-
 interface PendingReply {
   channel: Channel;
   message: Message;
@@ -110,6 +101,24 @@ interface SendMessageOptions {
 interface SendMessageResponse {
   shouldClear: boolean;
   shouldRefocus: boolean;
+}
+
+export interface ChatInputType {
+  analyticsName: string;
+  drafts: {
+    autosave?: boolean;
+    type: DraftType;
+  };
+  submit?: {
+    allowEmptyMessage?: boolean;
+    button?: boolean;
+    clearOnSubmit?: boolean;
+    disableEnterToSubmit?: boolean;
+    ignorePreference?: boolean;
+    useDisabledStylesOnSubmit?: boolean;
+  };
+  /** Not typed */
+  [index: string]: unknown;
 }
 
 interface ChannelTextAreaContainerProps {
@@ -158,7 +167,7 @@ interface ChannelTextAreaContainerProps {
     ref: unknown,
   ) => void;
   textValue: string;
-  type: Record<string, unknown>;
+  type: ChatInputType;
 }
 
 type ChannelTextAreaContainerType = React.ForwardRefExoticComponent<

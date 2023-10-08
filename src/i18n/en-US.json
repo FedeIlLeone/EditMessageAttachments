@@ -1,5 +1,4 @@
 {
   "EDITMESSAGEATTACHMENTS_COUNT_ATTACHMENTS": "{count, plural, =1 {# attachment} other {# attachments}}",
-  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_CONTENT": "File upload disabled while editing - EditMessageAttachments plugin enabled.",
-  "EDITMESSAGEATTACHMENTS_CTA_TOOLTIP_HEADER": "File Upload Disabled"
+  "EDITMESSAGEATTACHMENTS_SETTINGS_CLEAR_ON_CANCEL_TITLE": "Clear the upload queue when the edit is cancelled"
 }

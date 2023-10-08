@@ -1,11 +1,11 @@
 import { settings } from "replugged";
 
 interface Settings {
-  hasSeenCTA?: boolean;
+  clearOnCancel?: boolean;
 }
 
 const defaultSettings = {
-  hasSeenCTA: false,
+  clearOnCancel: true,
 } satisfies Partial<Settings>;
 
 export const cfg = await settings.init<Settings, keyof typeof defaultSettings>(

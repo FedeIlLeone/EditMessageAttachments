@@ -22,15 +22,13 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
 
   const ref = React.useRef<FileInputRef | null>(null);
 
-  const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () => {
-    return UploadAttachmentStore.getUploadCount(channelId, DraftType.ChannelMessage);
-  });
+  const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () =>
+    UploadAttachmentStore.getUploadCount(channelId, DraftType.EditedChannelMessage),
+  );
 
   const channel = Flux.useStateFromStores(
     [ChannelStore],
-    () => {
-      return ChannelStore.getChannel(channelId);
-    },
+    () => ChannelStore.getChannel(channelId),
     [channelId],
   );
 
@@ -61,10 +59,15 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
             return;
           }
 
-          UploadMixin.promptToUpload(event.currentTarget.files, channel, DraftType.ChannelMessage, {
-            requireConfirm: true,
-            showLargeMessageDialog: false,
-          });
+          UploadMixin.promptToUpload(
+            event.currentTarget.files,
+            channel,
+            DraftType.EditedChannelMessage,
+            {
+              requireConfirm: true,
+              showLargeMessageDialog: false,
+            },
+          );
 
           event.currentTarget.value = "";
         }}
