@@ -1,4 +1,4 @@
-import FileInput, { type FileInputRef } from "@components/webpack/FileInput";
+import FileInput, { type FileInput as FileInputType } from "@components/webpack/FileInput";
 import ImagePlaceholderWithPlusIcon from "@components/webpack/ImagePlaceholderWithPlusIcon";
 import UploadMixin from "@mixins/UploadMixin";
 import ChannelStore from "@stores/ChannelStore";
@@ -20,7 +20,7 @@ interface ComposerUploadButtonProps {
 export default (props: ComposerUploadButtonProps): React.ReactElement | null => {
   const { attachmentsCount, channelId } = props;
 
-  const ref = React.useRef<FileInputRef | null>(null);
+  const ref = React.useRef<FileInputType | null>(null);
 
   const uploadsCount = Flux.useStateFromStores([UploadAttachmentStore], () =>
     UploadAttachmentStore.getUploadCount(channelId, DraftType.EditedChannelMessage),

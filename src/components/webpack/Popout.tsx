@@ -32,19 +32,8 @@ interface BasePopoutChildrenState {
   position: PopoutPositions;
 }
 
-interface ReferencePositionLayerProps {
-  closePopout: () => void;
-  isPositioned: boolean;
-  nudge: number;
-  position: PopoutPositions;
-  setPopoutRef: (ref: HTMLElement | null) => void;
-  updatePosition: () => void;
-}
-
-interface PopoutProps {
+interface BasePopoutProps {
   align?: PopoutAlign;
-  animation?: string;
-  animationPosition?: string;
   autoInvert?: boolean;
   children: (
     baseProps: BasePopoutChildrenProps,
@@ -55,6 +44,7 @@ interface PopoutProps {
   fixed?: boolean;
   ignoreModalClicks?: boolean;
   layerContext?: React.Context<unknown>;
+  loadingComponent?: React.ReactNode;
   nudgeAlignIntoViewport?: boolean;
   onRequestClose?: () => void;
   onRequestOpen?: () => void;
@@ -68,18 +58,41 @@ interface PopoutProps {
   useMouseEnter?: boolean;
 }
 
-export type PopoutType = React.ComponentClass<PopoutProps> & {
-  defaultProps: PopoutProps;
+interface BasePopoutState {
+  isLoading: boolean;
+  renderedPosition: PopoutPositions | undefined;
+  resizeKey: number;
+  shouldShowLoadingState: boolean;
+  shouldShowPopout: boolean;
+}
+
+/** Not typed */
+export declare class BasePopout extends React.Component<BasePopoutProps, BasePopoutState> {}
+
+interface ReferencePositionLayerProps {
+  closePopout: () => void;
+  isPositioned: boolean;
+  nudge: number;
+  position: PopoutPositions;
+  setPopoutRef: (ref: HTMLElement | null) => void;
+  updatePosition: () => void;
+}
+
+interface PopoutProps extends BasePopoutProps {
+  animation?: string;
+  animationPosition?: string;
+}
+
+export declare class Popout extends React.Component<PopoutProps> {
+  private _ref: React.RefObject<BasePopout>;
+
+  public renderPopout: (props: ReferencePositionLayerProps) => React.ReactElement;
+}
+
+export type PopoutType = typeof Popout & {
   Animation: Record<"NONE" | "TRANSLATE" | "SCALE" | "FADE", string>;
 };
 
-export default await webpack
-  .waitForModule<Record<string, PopoutType>>(
-    webpack.filters.bySource(/ignoreModalClicks,.{1,3}\.closeOnScroll/),
-  )
-  .then(
-    (mod) =>
-      Object.values(mod).find(
-        (x) => "defaultProps" in x && "nudgeAlignIntoViewport" in x.defaultProps,
-      )!,
-  );
+const components = await webpack.waitForProps<Record<"Popout", PopoutType>>("Popout");
+
+export default components.Popout;

@@ -8,10 +8,11 @@ interface ScrollerThinProps extends React.ComponentPropsWithoutRef<"div"> {
   paddingFix?: boolean;
 }
 
-export type ScrollerThinType = React.ForwardRefExoticComponent<ScrollerThinProps> & {
-  render: React.ForwardRefRenderFunction<unknown, ScrollerThinProps>;
-};
+export type ScrollerThinType = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<ScrollerThinProps> & React.RefAttributes<unknown>
+>;
 
-export default (
-  await webpack.waitForProps<Record<"ScrollerThin", ScrollerThinType>>("ScrollerThin")
-).ScrollerThin;
+const components =
+  await webpack.waitForProps<Record<"ScrollerThin", ScrollerThinType>>("ScrollerThin");
+
+export default components.ScrollerThin;

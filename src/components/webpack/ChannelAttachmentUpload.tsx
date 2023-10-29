@@ -21,7 +21,7 @@ interface ChannelAttachmentUploadProps {
 
 export type ChannelAttachmentUploadType = React.FC<ChannelAttachmentUploadProps>;
 
-const channelAttachmentUploadStr = "().filenameContainer";
+const channelAttachmentUploadStr = ".filenameContainer";
 
 export default await webpack
   .waitForModule(webpack.filters.bySource(channelAttachmentUploadStr))

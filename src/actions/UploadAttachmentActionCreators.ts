@@ -12,7 +12,7 @@ interface AddFileOptions extends CommonAddOptions {
   file: Item;
 }
 
-export interface AddFilesOptions extends CommonAddOptions {
+interface AddFilesOptions extends CommonAddOptions {
   files: Item[];
 }
 
@@ -35,6 +35,10 @@ interface UpdateOptions {
   filename?: string;
   spoiler?: boolean;
   thumbnail?: boolean;
+}
+
+export interface UploadAttachmentAddFilesPayload extends AddFilesOptions {
+  type: "UPLOAD_ATTACHMENT_ADD_FILES";
 }
 
 interface UploadAttachmentActions {

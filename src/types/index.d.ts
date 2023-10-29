@@ -59,6 +59,7 @@ export interface MessageEditorProps {
   className?: string;
   message: Message;
   onCancel: (channelId: string, response?: Record<string, unknown>) => void;
+  onChange: (channelId: string, value: string, richValue: RichValue[]) => void;
   onConfirmDelete: (channel: Channel, message: Message, showContextMenuHint?: boolean) => void;
   richValue: RichValue[];
   saveMessage: (channelId: string, messageId: string, message: ParsedMessage) => Promise<void>;
@@ -134,6 +135,7 @@ interface ChannelTextAreaContainerProps {
   className?: string;
   disabled?: boolean;
   disableThemedBackground?: boolean;
+  emojiPickerCloseOnModalOuterClick?: boolean;
   focused: boolean;
   highlighted?: boolean;
   id?: string;
@@ -145,6 +147,7 @@ interface ChannelTextAreaContainerProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLTextAreaElement>;
   onResize?: (size: number) => void;
   onSubmit: (options: SendMessageOptions) => Promise<SendMessageResponse>;
+  parentModalKey?: string;
   pendingReply?: PendingReply;
   placeholder?: string;
   promptToUpload?: (typeof UploadMixin)["promptToUpload"];
@@ -170,10 +173,12 @@ interface ChannelTextAreaContainerProps {
   type: ChatInputType;
 }
 
-type ChannelTextAreaContainerType = React.ForwardRefExoticComponent<
-  React.PropsWithChildren<ChannelTextAreaContainerProps>
+export type ChannelTextAreaContainerType = React.MemoExoticComponent<
+  React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<React.PropsWithChildren<ChannelTextAreaContainerProps>> &
+      React.RefAttributes<unknown>
 > & {
   render: React.ForwardRefRenderFunction<unknown, ChannelTextAreaContainerProps>;
-};
-export type MemoChannelTextAreaContainerType =
-  React.MemoExoticComponent<ChannelTextAreaContainerType>;
+  }
+>;
+

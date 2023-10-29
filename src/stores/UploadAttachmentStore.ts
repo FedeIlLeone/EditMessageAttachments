@@ -3,7 +3,7 @@ import { webpack } from "replugged";
 import type { Store } from "replugged/dist/renderer/modules/common/flux";
 
 export enum DraftType {
-  // Custom DraftType for this plugin. Negative value to avoid possible conflicts.
+  /** Custom DraftType for this plugin. Negative value to avoid possible conflicts. */
   EditedChannelMessage = -1,
   ChannelMessage,
   ThreadSettings,

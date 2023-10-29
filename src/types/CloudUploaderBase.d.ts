@@ -18,7 +18,7 @@ export declare class CloudUploaderBase extends UploaderBase {
   private _recomputeProgressTotal: () => CloudUploaderProgress;
   private _remainingUploadCount: () => number;
   public cancel: () => void;
-  public cancelItem: (itemId: string) => void;
+  public cancelItem: (itemId: string) => Promise<void>;
   public clear: () => number;
   public compressAndCheckFileSize: () => Promise<boolean>;
   public failed: () => boolean;

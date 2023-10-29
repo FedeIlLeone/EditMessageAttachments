@@ -14,10 +14,10 @@ export declare class CloudUploader extends CloudUploaderBase {
     abortSignal: AbortSignal,
     data: Record<string, unknown>,
     addFilesTo: string | undefined,
-  ) => Message | Record<string, unknown>;
+  ) => Promise<Message | Record<string, unknown> | void>;
   public uploadFiles: (
     files: CloudUpload[],
     data: Record<string, unknown>,
     options?: CloudUploaderUploadOptions,
-  ) => Message | Record<string, unknown>;
+  ) => Promise<Message | Record<string, unknown> | void>;
 }

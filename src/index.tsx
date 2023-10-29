@@ -6,10 +6,10 @@ import UploadMixin from "@mixins/UploadMixin";
 import EditMessageStore from "@stores/EditMessageStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type {
+  ChannelTextAreaContainerType,
   ChatInputType,
   CloudUploader as CloudUploaderType,
   EditedMessageData,
-  MemoChannelTextAreaContainerType,
   MessageEditorProps,
 } from "@types";
 import { cfg } from "@utils/PluginSettingsUtils";
@@ -100,18 +100,17 @@ export async function _patchEditMessageAction(
 }
 
 async function patchChannelTextAreaContainer(): Promise<void> {
-  const MemoChannelTextAreaContainer =
-    await webpack.waitForModule<MemoChannelTextAreaContainerType>(
-      webpack.filters.bySource(/renderAttachButton,.{1,3}\.renderApplicationCommandIcon/),
+  const ChannelTextAreaContainer = await webpack.waitForModule<ChannelTextAreaContainerType>(
+    webpack.filters.bySource(/renderApplicationCommandIcon:\w+,pendingReply:\w+/),
     );
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!MemoChannelTextAreaContainer) {
-    logger.error("Failed to find MemoChannelTextAreaContainer");
+  if (!ChannelTextAreaContainer) {
+    logger.error("Failed to find ChannelTextAreaContainer");
     return;
   }
 
   // Enable sending an empty message and pasting files while editing
-  inject.before(MemoChannelTextAreaContainer.type, "render", ([props]) => {
+  inject.before(ChannelTextAreaContainer.type, "render", ([props]) => {
     // We don't need to listen to store changes, it re-renders pretty much constantly
     const isEditing = EditMessageStore.isEditingAny(props.channel.id);
     if (isEditing && props.type.submit && props.type.analyticsName === "edit") {
@@ -123,16 +122,15 @@ async function patchChannelTextAreaContainer(): Promise<void> {
 
 function patchStartEditMessageAction(): void {
   inject.after(messages, "startEditMessage", ([channelId]) => {
+    if (!cfg.get("clearOnCancel")) return;
     UploadAttachmentActionCreators.clearAll(channelId, DraftType.EditedChannelMessage);
   });
 }
 
 async function patchEditChatInputType(stop?: boolean): Promise<void> {
-  const ChatInputTypes = await webpack
-    .waitForModule<Record<string, Record<string, ChatInputType>>>(
-      webpack.filters.bySource('analyticsName:"edit"'),
-    )
-    .then((mod) => Object.values(mod).find((x) => "EDIT" in x));
+  const { ChatInputTypes } =
+    await webpack.waitForProps<Record<string, Record<string, ChatInputType>>>("ChatInputTypes");
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!ChatInputTypes) {
     logger.error("Failed to find ChatInputTypes");
     return;

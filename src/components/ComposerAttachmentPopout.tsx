@@ -1,7 +1,7 @@
+import ComposerUploadButton from "@components/ComposerUploadButton";
 import ChannelAttachmentUpload, {
   AttachmentListItemSizes,
 } from "@components/webpack/ChannelAttachmentUpload";
-import ComposerUploadButton from "@components/ComposerUploadButton";
 import ScrollerThin from "@components/webpack/ScrollerThin";
 import AccessibilityStore from "@stores/AccessibilityStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";

@@ -1,7 +1,7 @@
 import type React from "react";
 import { webpack } from "replugged";
 
-interface FileInputProps {
+interface CommonFileInputProps {
   "aria-hidden"?: boolean;
   "aria-label"?: string;
   className?: string;
@@ -15,13 +15,24 @@ interface FileInputProps {
   tabIndex?: number;
 }
 
-export type FileInputType = React.ComponentClass<FileInputProps>;
+export declare class CommonFileInput extends React.Component<CommonFileInputProps> {
+  private _input: HTMLInputElement | null;
 
-// I don't like this
-export type FileInputRef = React.ElementRef<FileInputType> & {
-  activateUploadDialogue: () => void;
-};
+  public activateUploadDialogue: () => void;
+  public handleBrowserInputMouseDown: React.MouseEventHandler<HTMLInputElement>;
+  public handleNativeClick: () => void;
+  public handleNativeKeyDown: React.KeyboardEventHandler<HTMLDivElement>;
+}
 
-export default await webpack.waitForModule<FileInputType>(
+interface FileInputProps extends CommonFileInputProps {}
+
+export declare class FileInput extends React.Component<FileInputProps> {
+  private _ref: React.RefObject<CommonFileInput> | null;
+
+  public activateUploadDialogue(): void;
+  public setRef(ref: CommonFileInput | null): void;
+}
+
+export default await webpack.waitForModule<typeof FileInput>(
   webpack.filters.bySource("_ref.activateUploadDialogue"),
 );

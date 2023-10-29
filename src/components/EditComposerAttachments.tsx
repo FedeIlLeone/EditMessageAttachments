@@ -1,5 +1,5 @@
 import UploadAttachmentActionCreators, {
-  type AddFilesOptions,
+  type UploadAttachmentAddFilesPayload,
 } from "@actions/UploadAttachmentActionCreators";
 import ComposerAttachmentPopout from "@components/ComposerAttachmentPopout";
 import Popout, { PopoutAlign, PopoutPositions } from "@components/webpack/Popout";
@@ -44,14 +44,16 @@ export default (props: EditComposerAttachmentsProps): React.ReactElement | null 
   const [shouldShow, setShouldShow] = React.useState(false);
 
   React.useEffect(() => {
-    const showFn = (action: AddFilesOptions): void => {
+    const showFn = (action: UploadAttachmentAddFilesPayload): void => {
       if (action.draftType === DraftType.EditedChannelMessage) setShouldShow(true);
     };
 
-    // @ts-expect-error Wrong types
-    Dispatcher.subscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
-    // @ts-expect-error Wrong types x2
-    return () => Dispatcher.unsubscribe("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
+    Dispatcher.subscribe<UploadAttachmentAddFilesPayload>("UPLOAD_ATTACHMENT_ADD_FILES", showFn);
+    return () =>
+      Dispatcher.unsubscribe<UploadAttachmentAddFilesPayload>(
+        "UPLOAD_ATTACHMENT_ADD_FILES",
+        showFn,
+      );
   });
 
   return (
