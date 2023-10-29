@@ -177,8 +177,7 @@ export type ChannelTextAreaContainerType = React.MemoExoticComponent<
   React.ForwardRefExoticComponent<
     React.PropsWithoutRef<React.PropsWithChildren<ChannelTextAreaContainerProps>> &
       React.RefAttributes<unknown>
-> & {
-  render: React.ForwardRefRenderFunction<unknown, ChannelTextAreaContainerProps>;
+  > & {
+    render: React.ForwardRefRenderFunction<unknown, ChannelTextAreaContainerProps>;
   }
 >;
-

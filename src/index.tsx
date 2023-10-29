@@ -90,7 +90,7 @@ export async function _patchEditMessageAction(
   cloudUploader.on("error", (_, __, response) => runOriginalFunction(response));
   cloudUploader.on("complete", (_, response) => runOriginalFunction(response));
 
-  cloudUploader.uploadFiles(
+  void cloudUploader.uploadFiles(
     files,
     { ...data, attachments: message?.attachments },
     { addFilesTo: "attachments" },
@@ -102,7 +102,7 @@ export async function _patchEditMessageAction(
 async function patchChannelTextAreaContainer(): Promise<void> {
   const ChannelTextAreaContainer = await webpack.waitForModule<ChannelTextAreaContainerType>(
     webpack.filters.bySource(/renderApplicationCommandIcon:\w+,pendingReply:\w+/),
-    );
+  );
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!ChannelTextAreaContainer) {
     logger.error("Failed to find ChannelTextAreaContainer");
