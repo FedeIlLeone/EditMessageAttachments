@@ -1,6 +1,5 @@
-import UploadMixin from "@mixins/UploadMixin";
 import { DraftType } from "@stores/UploadAttachmentStore";
-import type { Channel, Message } from "discord-types/general";
+import UploaderUtils from "@utils/UploaderUtils";
 import type React from "react";
 import type { CloudUpload } from "./CloudUpload";
 
@@ -150,7 +149,7 @@ interface ChannelTextAreaContainerProps {
   parentModalKey?: string;
   pendingReply?: PendingReply;
   placeholder?: string;
-  promptToUpload?: (typeof UploadMixin)["promptToUpload"];
+  promptToUpload?: (typeof UploaderUtils)["promptToUpload"];
   renderApplicationCommandIcon?: (
     /** Not typed */
     command: unknown,

@@ -3,6 +3,7 @@ import { webpack } from "replugged";
 import type { Store } from "replugged/dist/renderer/modules/common/flux";
 
 interface GuildPermissionProps {
+  canAccessMembersPage: boolean;
   canManageBans: boolean;
   canManageChannels: boolean;
   canManageGuild: boolean;

@@ -29,8 +29,8 @@ interface FileInputProps extends CommonFileInputProps {}
 export declare class FileInput extends React.Component<FileInputProps> {
   private _ref: React.RefObject<CommonFileInput> | null;
 
-  public activateUploadDialogue(): void;
-  public setRef(ref: CommonFileInput | null): void;
+  public activateUploadDialogue: () => void;
+  public setRef: (ref: CommonFileInput | null) => void;
 }
 
 export default await webpack.waitForModule<typeof FileInput>(

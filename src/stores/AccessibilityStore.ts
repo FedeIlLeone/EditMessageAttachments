@@ -2,11 +2,9 @@ import { webpack } from "replugged";
 import type { PersistedStore } from "replugged/dist/renderer/modules/common/flux";
 
 interface AccessibilityState {
-  accessibilitySupportEnabled: boolean;
   alwaysShowLinkDecorations: boolean;
   colorblindMode: boolean;
   desaturateUserColors: boolean;
-  detectionModalSeen: boolean;
   fontSize: number;
   forcedColorsModalSeen: boolean;
   keyboardModeEnabled: boolean;
@@ -29,11 +27,9 @@ interface AccessibilityState {
 export interface AccessibilityStore extends PersistedStore {
   getUserAgnosticState: () => AccessibilityState;
 
-  get accessibilitySupportEnabled(): boolean;
   get alwaysShowLinkDecorations(): boolean;
   get colorblindMode(): boolean;
   get desaturateUserColors(): boolean;
-  get detectionModalSeen(): boolean;
   get fontScale(): number;
   get fontScaleClass(): string;
   get fontSize(): number;

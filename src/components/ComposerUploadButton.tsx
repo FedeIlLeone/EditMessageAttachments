@@ -1,8 +1,8 @@
 import FileInput, { type FileInput as FileInputType } from "@components/webpack/FileInput";
 import ImagePlaceholderWithPlusIcon from "@components/webpack/ImagePlaceholderWithPlusIcon";
-import UploadMixin from "@mixins/UploadMixin";
 import ChannelStore from "@stores/ChannelStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
+import UploaderUtils from "@utils/UploaderUtils";
 import { common, components } from "replugged";
 import { logger } from "..";
 import { MAX_UPLOAD_COUNT } from "../constants";
@@ -59,7 +59,7 @@ export default (props: ComposerUploadButtonProps): React.ReactElement | null => 
             return;
           }
 
-          UploadMixin.promptToUpload(
+          UploaderUtils.promptToUpload(
             event.currentTarget.files,
             channel,
             DraftType.EditedChannelMessage,

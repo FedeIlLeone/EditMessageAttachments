@@ -36,8 +36,6 @@
       "@components/*": ["src/components/*"],
       "@i18n": ["src/i18n/"],
       "@i18n/*": ["src/i18n/*"],
-      "@mixins": ["src/mixins/"],
-      "@mixins/*": ["src/mixins/*"],
       "@stores": ["src/stores/"],
       "@stores/*": ["src/stores/*"],
       "@types": ["src/types/"],

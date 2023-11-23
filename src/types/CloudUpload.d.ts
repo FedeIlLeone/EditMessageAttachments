@@ -31,7 +31,6 @@ export declare class CloudUpload extends Upload {
   public channelId: string;
   public currentSize: number;
   public error?: string;
-  public isClip: boolean;
   public loaded: number;
   public postCompressionSize?: number;
   public preCompressionSize: number;

@@ -9,7 +9,7 @@ interface PromptToUploadOptions {
   showLargeMessageDialog?: boolean;
 }
 
-interface UploadMixinMod {
+interface UploaderUtils {
   promptToUpload: (
     files: FileList | null,
     channel: Channel,
@@ -19,4 +19,4 @@ interface UploadMixinMod {
   showUploadFileSizeExceededError: (channel: Channel, files: FileList | null) => boolean;
 }
 
-export default await webpack.waitForProps<UploadMixinMod>("showUploadFileSizeExceededError");
+export default await webpack.waitForProps<UploaderUtils>("showUploadFileSizeExceededError");

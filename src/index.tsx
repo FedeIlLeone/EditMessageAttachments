@@ -2,7 +2,6 @@ import UploadAttachmentActionCreators from "@actions/UploadAttachmentActionCreat
 import EditComposerAttachments from "@components/EditComposerAttachments";
 import Settings from "@components/Settings";
 import translations from "@i18n";
-import UploadMixin from "@mixins/UploadMixin";
 import EditMessageStore from "@stores/EditMessageStore";
 import UploadAttachmentStore, { DraftType } from "@stores/UploadAttachmentStore";
 import type {
@@ -13,6 +12,7 @@ import type {
   MessageEditorProps,
 } from "@types";
 import { cfg } from "@utils/PluginSettingsUtils";
+import UploaderUtils from "@utils/UploaderUtils";
 import type React from "react";
 import { Injector, Logger, common, i18n, webpack } from "replugged";
 
@@ -115,7 +115,7 @@ async function patchChannelTextAreaContainer(): Promise<void> {
     const isEditing = EditMessageStore.isEditingAny(props.channel.id);
     if (isEditing && props.type.submit && props.type.analyticsName === "edit") {
       props.type.submit.allowEmptyMessage = true;
-      props.promptToUpload ||= UploadMixin.promptToUpload;
+      props.promptToUpload ||= UploaderUtils.promptToUpload;
     }
   });
 }
