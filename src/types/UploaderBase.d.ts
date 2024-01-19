@@ -7,7 +7,7 @@ export interface UploaderBaseOptions {
 }
 
 interface UploaderBaseFile {
-  attachmentsCount: 0;
+  attachmentsCount: number;
   channelId: string | undefined;
   compressionProgress: number;
   currentSize: number;
@@ -48,35 +48,35 @@ interface UploaderBaseFileOptions {
 export declare class UploaderBase extends EventEmitter {
   public constructor(url: string, method?: "POST" | "PATCH", options?: UploaderBaseOptions);
 
-  private _aborted: boolean;
-  private _errored: boolean;
-  private _file?: UploaderBaseFile;
   private _lastUpdate: number;
   private _loaded: number;
-  private _method: "POST" | "PATCH";
-  private _raiseEndpointErrors: boolean;
   private _token: string;
-  private _url: string;
+  protected _file?: UploaderBaseFile;
+  protected _method: "POST" | "PATCH";
+  protected _raiseEndpointErrors: boolean;
+  protected _url: string;
+  public _aborted: boolean;
+  public _errored: boolean;
   public alreadyStarted: boolean;
   public id: string;
   public processingMessageChangeInterval?: number | undefined;
 
-  private _addAttachmentsToPayload: (
+  protected _addAttachmentsToPayload: (
     data: Record<string, unknown>,
     addFilesTo: string | undefined,
     attachmentsPayload: AttachmentPayload[],
   ) => Record<string, unknown>;
-  private _cancel?: () => void;
-  private _handleAborted: () => void;
-  private _handleComplete: (body: Message | Record<string, unknown>) => void;
-  private _handleError: (uploaderBaseError: UploaderBaseError) => void;
-  private _handleException: (error: Error) => void;
-  private _handleProgress: (
+  protected _cancel?: () => void;
+  protected _handleAborted: () => void;
+  protected _handleComplete: (body: Message | Record<string, unknown>) => void;
+  protected _handleError: (uploaderBaseError: UploaderBaseError) => void;
+  protected _handleException: (error: Error) => void;
+  protected _handleProgress: (
     loaded: number,
     currentSize: number,
     filesProgress?: Record<string, number>,
   ) => void;
-  private _handleStart: (cancelCallback: () => void) => void;
+  protected _handleStart: (cancelCallback: () => void) => void;
   public cancel: () => void;
   public cancelItem: (id: string) => void;
   public clearProcessingMessageInterval: () => void;

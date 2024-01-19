@@ -134,6 +134,7 @@ interface ChannelTextAreaContainerProps {
   className?: string;
   disabled?: boolean;
   disableThemedBackground?: boolean;
+  editorClassName?: string;
   emojiPickerCloseOnModalOuterClick?: boolean;
   focused: boolean;
   highlighted?: boolean;
@@ -150,6 +151,7 @@ interface ChannelTextAreaContainerProps {
   pendingReply?: PendingReply;
   placeholder?: string;
   promptToUpload?: (typeof UploaderUtils)["promptToUpload"];
+  renderAppLauncherButton?: () => React.ReactElement;
   renderApplicationCommandIcon?: (
     /** Not typed */
     command: unknown,

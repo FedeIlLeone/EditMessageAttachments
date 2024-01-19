@@ -16,6 +16,21 @@ interface RetryOptions {
   timeout: number;
 }
 
+interface ChunkUpload {
+  bufferedFileData?: Blob;
+  contentType: string;
+  fileSize: number;
+}
+
+interface ChunkData {
+  chunk: Blob;
+  contentType: string;
+  end: number;
+  sessionUrl: string;
+  start: number;
+  totalSize: number;
+}
+
 export declare class CloudUpload extends Upload {
   public constructor(
     item: Item,
@@ -27,7 +42,7 @@ export declare class CloudUpload extends Upload {
   public static fromJson: (data: Record<string, unknown>) => CloudUpload;
 
   private _abortController: AbortController;
-  private _aborted: boolean;
+  public _aborted: boolean;
   public channelId: string;
   public currentSize: number;
   public error?: string;
@@ -36,14 +51,23 @@ export declare class CloudUpload extends Upload {
   public preCompressionSize: number;
   public reactNativeFileIndex: number;
   public reactNativeFilePrepped: boolean;
+  public responseUrl?: string;
+  public RESUME_INCOMPLETE_CODES: number[];
   public status: CloudUploadStatus;
   public uploadedFilename?: string;
 
   public cancel: () => void;
   public delete: () => Promise<void>;
+  public getChunk: (
+    start: number,
+    end: number,
+    fileData: Blob | undefined,
+  ) => Promise<Blob | undefined>;
   public getSize: () => Promise<number>;
   public handleComplete: (response: Record<string, unknown>) => void;
   public handleError: (error: Error | number) => void;
+  public isUnsuccessfulChunkUpload: (response: Record<string, unknown>, end: number) => boolean;
+  public prepareChunkUploadItem: () => Promise<ChunkUpload>;
   public reactNativeCompressAndExtractData: () => Promise<void>;
   public resetState: () => CloudUpload;
   public retryOpts: () => RetryOptions;
@@ -52,5 +76,7 @@ export declare class CloudUpload extends Upload {
   public setStatus: (status: CloudUploadStatus) => void;
   public setUploadedFilename: (uploadedFilename: string) => void;
   public upload: () => Promise<void>;
+  public uploadChunk: (data: ChunkData) => Promise<void>;
   public uploadFileToCloud: () => Record<string, unknown>;
+  public uploadFileToCloudAsChunks: (chunkSize: number) => Promise<void>;
 }
