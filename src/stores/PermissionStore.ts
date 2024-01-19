@@ -39,6 +39,7 @@ export interface PermissionStore extends Store {
     excludeGuildPermissions?: boolean,
   ) => boolean;
   canAccessGuildSettings: (guild: Guild) => boolean;
+  canAccessMemberSafetyPage: (guild: Guild) => boolean;
   canBasicChannel: (
     permissions: number,
     channel: Channel,

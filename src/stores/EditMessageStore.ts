@@ -4,6 +4,7 @@ import { webpack } from "replugged";
 import type { Store } from "replugged/dist/renderer/modules/common/flux";
 
 export interface EditMessageStore extends Store {
+  getEditActionSource: (channelId: string) => string | undefined;
   getEditingMessage: (channelId: string) => Message | null;
   getEditingMessageId: (channelId: string) => string | undefined;
   getEditingRichValue: (channelId: string) => RichValue[] | undefined;

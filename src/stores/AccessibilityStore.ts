@@ -4,6 +4,7 @@ import type { PersistedStore } from "replugged/dist/renderer/modules/common/flux
 interface AccessibilityState {
   alwaysShowLinkDecorations: boolean;
   colorblindMode: boolean;
+  contrast: number;
   desaturateUserColors: boolean;
   fontSize: number;
   forcedColorsModalSeen: boolean;
@@ -29,6 +30,7 @@ export interface AccessibilityStore extends PersistedStore {
 
   get alwaysShowLinkDecorations(): boolean;
   get colorblindMode(): boolean;
+  get contrast(): number;
   get desaturateUserColors(): boolean;
   get fontScale(): number;
   get fontScaleClass(): string;
