@@ -16,7 +16,7 @@ import UploaderUtils from "@utils/UploaderUtils";
 import type React from "react";
 import { Injector, Logger, common, i18n, webpack } from "replugged";
 
-const { constants, messages } = common;
+const { constants, fluxDispatcher: Dispatcher, messages } = common;
 
 let stopped = false;
 
@@ -26,7 +26,6 @@ export const inject = new Injector();
 export function _renderEditComposerAttachments(props: MessageEditorProps): React.ReactNode {
   const { channel, message } = props;
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!channel || !message) return null;
 
   return stopped ? null : <EditComposerAttachments channel={channel} message={message} />;
@@ -86,9 +85,42 @@ export async function _patchEditMessageAction(
     if (originalFunction) originalFunction(patchedResponse);
   }
 
-  // TODO: CloudUploader has a "progress" event; maybe can add a progress bar or a spinner?
-  cloudUploader.on("error", (_, __, response) => runOriginalFunction(response));
-  cloudUploader.on("complete", (_, response) => runOriginalFunction(response));
+  cloudUploader.on("start", (file) => {
+    Dispatcher.dispatch({
+      type: "UPLOAD_START",
+      channelId,
+      file,
+      message,
+      uploader: cloudUploader,
+    });
+  });
+  cloudUploader.on("progress", (file) => {
+    Dispatcher.dispatch({
+      type: "UPLOAD_PROGRESS",
+      channelId,
+      file,
+    });
+  });
+  cloudUploader.on("error", (file, __, response) => {
+    Dispatcher.dispatch({
+      type: "UPLOAD_FAIL",
+      channelId,
+      file,
+      messageRecord: message,
+    });
+
+    runOriginalFunction(response);
+  });
+  cloudUploader.on("complete", (file, response) => {
+    Dispatcher.dispatch({
+      type: "UPLOAD_COMPLETE",
+      channelId,
+      file,
+      aborted: cloudUploader._aborted,
+    });
+
+    runOriginalFunction(response);
+  });
 
   void cloudUploader.uploadFiles(
     files,
