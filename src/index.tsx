@@ -16,7 +16,7 @@ import UploaderUtils from "@utils/UploaderUtils";
 import type React from "react";
 import { Injector, Logger, common, i18n, webpack } from "replugged";
 
-const { constants, messages, fluxDispatcher } = common;
+const { constants, fluxDispatcher: Dispatcher, messages } = common;
 
 let stopped = false;
 
@@ -86,7 +86,7 @@ export async function _patchEditMessageAction(
   }
 
   cloudUploader.on("start", (file) => {
-    fluxDispatcher.dispatch({
+    Dispatcher.dispatch({
       type: "UPLOAD_START",
       channelId,
       file,
@@ -95,14 +95,14 @@ export async function _patchEditMessageAction(
     });
   });
   cloudUploader.on("progress", (file) => {
-    fluxDispatcher.dispatch({
+    Dispatcher.dispatch({
       type: "UPLOAD_PROGRESS",
       channelId,
       file,
     });
   });
   cloudUploader.on("error", (file, __, response) => {
-    fluxDispatcher.dispatch({
+    Dispatcher.dispatch({
       type: "UPLOAD_FAIL",
       channelId,
       file,
@@ -112,13 +112,13 @@ export async function _patchEditMessageAction(
     runOriginalFunction(response);
   });
   cloudUploader.on("complete", (file, response) => {
-    fluxDispatcher.dispatch({
+    Dispatcher.dispatch({
       type: "UPLOAD_COMPLETE",
       channelId,
       file,
-      // @ts-expect-error i aint touching your
       aborted: cloudUploader._aborted,
     });
+
     runOriginalFunction(response);
   });
 
